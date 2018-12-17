@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,14 +44,32 @@ class MainActivity : AppCompatActivity() {
             btnChoice.text = "X"
             btnChoice.setBackgroundColor(Color.GREEN)
             player1.add(cellID)
+            findWinner(player1)
             activePlayer = 2
         } else {
             btnChoice.text = "O"
             btnChoice.setBackgroundColor(Color.BLUE)
             player2.add(cellID)
+            findWinner(player2)
             activePlayer = 1
         }
 
         btnChoice.isEnabled = false
+    }
+
+    fun findWinner(P : ArrayList<Int>) {
+        var winner = -1
+
+        if (P.containsAll(listOf(1, 2, 3)) ||
+            P.containsAll(listOf(4, 5, 6)) ||
+            P.containsAll(listOf(7, 8, 9)) ||
+            P.containsAll(listOf(1, 4, 7)) ||
+            P.containsAll(listOf(2, 5, 8)) ||
+            P.containsAll(listOf(3, 6, 9)) ||
+            P.containsAll(listOf(1, 5, 9)) ||
+            P.containsAll(listOf(3, 5, 7))) {
+            winner = activePlayer
+            Toast.makeText(this, "Player $winner is the winner!", Toast.LENGTH_LONG).show()
+        }
     }
 }
